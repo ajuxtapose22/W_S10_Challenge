@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { pizzaApi } from './createApi';
-import pizzaFormReducer from './pizzaFomSlice';
+import pizzaFormReducer, { resetForm } from './pizzaFomSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,3 +11,8 @@ export const store = configureStore({
     pizzaApi.middleware,
   )
 });
+
+export const resetStore = () => {
+  store.dispatch(resetForm())
+  return store
+}
