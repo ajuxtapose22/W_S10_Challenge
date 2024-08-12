@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import { pizzaApi } from './createApi'
+
 
     const initialState = { 
         fullName: '',
@@ -26,7 +26,9 @@ export const pizzaFormSlice = createSlice({
                 const { toppingId, value } = action.payload
                 state.toppings[toppingId] = value
             },
-            resetForm: () => initialState
+            resetForm: (state) => {
+                return initialState
+            } 
         }
       })
 
