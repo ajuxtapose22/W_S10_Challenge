@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { pizzaApi } from './createApi'
+// import { pizzaApi } from './createApi'
 
     const initialState = { 
         fullName: '',

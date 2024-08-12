@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
-import { useDispatch } from 'react-redux';
-import { updateOrder, resetForm } from '../state/pizzaFomSlice';
+// import { useDispatch } from 'react-redux';
+// import { updateOrder, resetForm } from '../state/pizzaFomSlice';
 import { useSubmitOrderMutation } from '../state/createApi';
 
 const CHANGE_INPUT = "CHANGE_INPUT"
@@ -35,9 +35,9 @@ const reducer = (state, action) => {
   }
 }
 
-export default function PizzaForm({ formState }) {
+export default function PizzaForm() {
 const [state, dispatch] = useReducer(reducer,initialState)
-const [submitOrder, {isLoading, isError}] = useSubmitOrderMutation()
+const [submitOrder, { error: creationError }] = useSubmitOrderMutation()
 
 const onInputChange = (evt) => {
   const { name, value } = evt.target
@@ -56,27 +56,32 @@ const resetForm = () => {
   dispatch({ type: RESET_FORM });
 };
 
+
 const handleSubmit = (event) => {
   event.preventDefault();
   const { fullName, size, toppings } = state;
-  submitOrder({ fullName, size, toppings })
+
+  const selectedToppings = Object.keys(toppings)
+    .filter(toppingId => toppings[toppingId]);
+
+
+  submitOrder({ fullName, size, toppings: selectedToppings })
     .unwrap()
     .then(data => {
-      console.log(data);
+      console.log('Order successful:', data);
       resetForm();
     })
     .catch(err => {
-      console.error(err);
+      console.error('Order failed:', err);
     });
 };
-
 
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Pizza Form</h2>
-      {isLoading && <div className='pending'>Order in progress...</div>}
-      {isError && <div className='failure'>Order failed: fullName is required</div>}
+      {/* {creationError && <div className='pending'>{creationError.data.message}</div>} */}
+      {creationError && <div className='failure'>{creationError.data.message}</div>}
 
       <div className="input-group">
         <div>
