@@ -109,7 +109,7 @@ const handleSubmit = (event) => {
             onChange={onInputChange}
           >
             <option value="">----Choose size----</option>
-            <option value="S">Small</option>
+            <option value="S" >Small</option>
             <option value="M">Medium</option>
             <option value="L">Large</option>
           </select>

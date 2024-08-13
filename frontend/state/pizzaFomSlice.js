@@ -9,7 +9,9 @@ import { createSlice } from '@reduxjs/toolkit'
         '2': false,
         '3': false,
         '4': false,
-        '5': false}
+        '5': false
+    },
+        filte: 'All'
       }
       
 export const pizzaFormSlice = createSlice({
@@ -22,15 +24,16 @@ export const pizzaFormSlice = createSlice({
             updateOrderSize: (state, action) => {
                 state.size = action.payload
             },
-            updateOderTopping: (state, action) => {
+            updateOrderTopping: (state, action) => {
                 const { toppingId, value } = action.payload
                 state.toppings[toppingId] = value
             },
-            resetForm: (state) => {
-                return initialState
-            } 
+            resetForm: () => initialState,
+            setFilter: (state, action) => {
+                state.filter = action.payload
+            }
         }
       })
 
-export const { updateOrder, resetForm } = pizzaFormSlice.actions
+export const { updateOrderFullName, updateOrderSize, updateOrderTopping, resetForm, setFilter } = pizzaFormSlice.actions
 export default pizzaFormSlice.reducer
