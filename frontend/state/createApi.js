@@ -7,7 +7,7 @@ export const pizzaApi = createApi({
     endpoints: (builder) => ({
         getPizzaOrders: builder.query({
             query: () => 'history',
-            providesTag: ['PizzaOrders'],
+            providesTags: ['PizzaOrders'],
         }),
         submitOrder: builder.mutation({
             query: (newOrder) => ({

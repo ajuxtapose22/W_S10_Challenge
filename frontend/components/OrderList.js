@@ -9,7 +9,7 @@ export default function OrderList() {
     (order) => filter === "All" || order.size === filter
   );
 
-  // if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div></div>
   // if (error) return <div>Error loading orders: {error.message}</div>;
 
   return (

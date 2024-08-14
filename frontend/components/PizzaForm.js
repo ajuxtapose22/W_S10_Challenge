@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useState } from 'react'
 // import { useDispatch } from 'react-redux'
-import { updateOrder, resetForm } from '../state/pizzaFomSlice'
+// import { updateOrder, resetForm } from '../state/pizzaFomSlice'
 import { useSubmitOrderMutation } from '../state/createApi'
 
 const CHANGE_INPUT = "CHANGE_INPUT"
@@ -38,6 +38,7 @@ const reducer = (state, action) => {
 export default function PizzaForm() {
 const [state, dispatch] = useReducer(reducer,initialState)
 const [submitOrder, { error: creationError }] = useSubmitOrderMutation()
+const [isSubmitting, setIsSubnmitting] = useState(false)
 
 const onInputChange = (evt) => {
   const { name, value } = evt.target
@@ -59,6 +60,7 @@ const resetFormAction = () => {
 
 const handleSubmit = (event) => {
   event.preventDefault()
+  setIsSubnmitting(true)
   const { fullName, size, toppings } = state
 
   const selectedToppings = Object.keys(toppings)
@@ -66,21 +68,24 @@ const handleSubmit = (event) => {
 
 
   submitOrder({ fullName, size, toppings: selectedToppings })
-    // .unwrap()
-    // .then(data => {
-    //   console.log('Order successful:', data)
-    //   resetFormAction()
-    // })
-    // .catch(err => {
-    //   console.error('Order failed:', err)
-    // })
+    .unwrap()
+    .then(data => {
+      console.log('Order successful:', data)
+      resetFormAction()
+      setIsSubnmitting(false)
+    })
+    .catch(err => {
+      console.error('Order failed:', err)
+      setIsSubnmitting(false)
+    })
 }
 
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Pizza Form</h2>
-      {/* {creationError && <div className='pending'>{creationError.data.message}</div>} */}
+    
+      {isSubmitting && <div>Order in progress...</div>}
       {creationError && <div className='failure'>{creationError.data.message}</div>}
 
       <div className="input-group">
