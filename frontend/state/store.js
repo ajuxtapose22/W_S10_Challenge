@@ -13,6 +13,13 @@ export const store = configureStore({
 });
 
 export const resetStore = () => {
-  store.dispatch(resetForm())
-  return store
+
+  return configureStore({
+    reducer: {
+      pizzaForm: pizzaFormReducer,
+      [pizzaApi.reducerPath]: pizzaApi.reducer
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(pizzaApi.middleware)
+  })
 }

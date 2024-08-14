@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useGetPizzaOrdersQuery } from "../state/createApi";
+import React, { useState } from "react"
+import { useGetPizzaOrdersQuery } from "../state/createApi"
 
 export default function OrderList() {
-  const { data: orders = [], error, isLoading } = useGetPizzaOrdersQuery();
-  const [filter, setFilter] = useState("All");
+  const { data: orders = [], error, isLoading } = useGetPizzaOrdersQuery()
+  const [filter, setFilter] = useState("All")
 
   const filteredOrders = orders.filter(
     (order) => filter === "All" || order.size === filter
   );
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading orders: {error.message}</div>;
+  // if (isLoading) return <div>Loading...</div>;
+  // if (error) return <div>Error loading orders: {error.message}</div>;
 
   return (
     <div id="orderList">
@@ -19,13 +19,13 @@ export default function OrderList() {
       <ol>
         {filteredOrders.length > 0 ? (
           filteredOrders.map((order) => {
-            const toppingsCount = order.toppings ? order.toppings.length : 0;
+            const toppingsCount = order.toppings ? order.toppings.length : 0
             const toppingsText =
               toppingsCount === 0
                 ? "no toppings"
                 : `${toppingsCount} ${
                     toppingsCount === 1 ? "topping" : "toppings"
-                  }`;
+                  }`
             return (
               <li key={order.id}>
                 <div>

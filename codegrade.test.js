@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import { Provider } from 'react-redux'
 import server from './backend/pizza-router-mock'
 import { reset } from './backend/helpers'
-import { resetStore } from './frontend/state/store'
+import { store, resetStore } from './frontend/state/store'
 import App from './frontend/components/App'
 
 jest.setTimeout(1500)
@@ -21,6 +21,10 @@ afterEach(() => {
   reset()
   server.resetHandlers()
 })
+
+// const logReduxState = () => {
+//   console.log('Current Redux State:', store.getStore())
+// }
 
 describe('Pizza App', () => {
   let fullName, size, pepperoni, greenpeppers, pineapple, mushrooms, ham, submit, btn_all, btn_s, btn_m, btn_l, user
@@ -39,11 +43,15 @@ describe('Pizza App', () => {
     btn_m = screen.getByTestId('filterBtnM')
     btn_l = screen.getByTestId('filterBtnL')
 
+
+    // logReduxState()
+
     await waitFor(() => screen.getByText('Sigourney Weaver ordered', queryOptions), waitForOptions)
     expect(screen.getAllByText('ordered a size', queryOptions)).toHaveLength(1)
   })
   test('[1] Existing "Sigourney Weaver" order from the server renders correctly', async () => {
     // this checks only the assertions inside the beforeEach above
+  //  console.log('Running test 1')
   })
   test('[2] Correct history item renders on order with no toppings', async () => {
     await user.type(fullName, 'Meryl Streep')

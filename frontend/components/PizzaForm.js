@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { updateOrder, resetForm } from '../state/pizzaFomSlice';
-import { useSubmitOrderMutation } from '../state/createApi';
+import React, { useReducer } from 'react'
+// import { useDispatch } from 'react-redux'
+import { updateOrder, resetForm } from '../state/pizzaFomSlice'
+import { useSubmitOrderMutation } from '../state/createApi'
 
 const CHANGE_INPUT = "CHANGE_INPUT"
 const CHANGE_CHECKBOX = "CHANGE_CHECKBOX"
@@ -29,7 +29,7 @@ const reducer = (state, action) => {
       return { ...state, toppings: { ...state.toppings, [toppingId]: checked}}
     }
     case RESET_FORM:
-      return initialState;
+      return initialState
     default:
       return state
   }
@@ -45,36 +45,36 @@ const onInputChange = (evt) => {
 }
 
 const onCheckboxChange = (evt) => {
-  const { name, checked } = evt.target;
-  dispatch({ type: CHANGE_CHECKBOX, payload: { toppingId: name, checked } });
+  const { name, checked } = evt.target
+  dispatch({ type: CHANGE_CHECKBOX, payload: { toppingId: name, checked } })
 }
 
 
 
 
-const resetForm = () => {
-  dispatch({ type: RESET_FORM });
-};
+const resetFormAction = () => {
+  dispatch({ type: RESET_FORM })
+}
 
 
 const handleSubmit = (event) => {
-  event.preventDefault();
-  const { fullName, size, toppings } = state;
+  event.preventDefault()
+  const { fullName, size, toppings } = state
 
   const selectedToppings = Object.keys(toppings)
-    .filter(toppingId => toppings[toppingId]);
+    .filter(toppingId => toppings[toppingId])
 
 
   submitOrder({ fullName, size, toppings: selectedToppings })
-    .unwrap()
-    .then(data => {
-      console.log('Order successful:', data);
-      resetForm();
-    })
-    .catch(err => {
-      console.error('Order failed:', err);
-    });
-};
+    // .unwrap()
+    // .then(data => {
+    //   console.log('Order successful:', data)
+    //   resetFormAction()
+    // })
+    // .catch(err => {
+    //   console.error('Order failed:', err)
+    // })
+}
 
 
   return (

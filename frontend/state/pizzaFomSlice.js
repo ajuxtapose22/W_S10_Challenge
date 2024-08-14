@@ -11,7 +11,7 @@ import { createSlice } from '@reduxjs/toolkit'
         '4': false,
         '5': false
     },
-        filte: 'All'
+        filter: 'All'
       }
       
 export const pizzaFormSlice = createSlice({
